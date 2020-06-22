@@ -100,6 +100,49 @@ india = [state1, state2, state3, state4, state5, state6, state7, state8, state9,
 print("Length of India is:", len(india))
 print()
 
+
+def filter():
+    # 1. Filtering the data from Collection as expected by User
+    filter1 = input("Please Enter 1st Filter from [active | confirmed | deaths | recovered | state]: ")
+    filter2 = input("Please Enter 2nd Filter from [active | confirmed | deaths | recovered | state]: ")
+
+    for i in range(0, len(india)):
+        print("~~~~~~~~~~~~~~~~~~")
+        print("{}: {}\n{}: {}".format(filter1.upper(), india[i][filter1], filter2.upper(), india[i][filter2]))
+        print("~~~~~~~~~~~~~~~~~~")
+        print()
+
+
+def search():
+    # 2. Searching from the Data | Linear Search
+    state = input("Enter the name of state to search: ")
+    for i in range(0, len(india)):
+
+        print("Matching {} with {}".format(state, india[i]["state"]))
+
+        # if state == india[i]["state"]:
+        if state.lower() == india[i]["state"].lower():
+            print("State {} Found. Details are Below:".format(state))
+            print(india[i])
+            break
+
+def sort():
+    # 3. Sort the data | Bubble Sort
+    sort_filter = input("Enter Sorting Field [active | confirmed | deaths | recovered ]: ")
+    n = len(india)  # n is 10
+    for i in range(0, n):  # 0, 9
+        for j in range(0, n - i - 1):
+            if india[j][sort_filter] > india[j + 1][sort_filter]:
+                # Swap the Elements
+                india[j], india[j + 1] = india[j + 1], india[j]
+
+    print("Sorted As Per {} Cases: ".format(sort_filter))
+    for i in range(0, len(india)):
+        print("~~~~~~~~~~~~~~~~~~")
+        print("{}: {}\n{}: {}".format("STATE", india[i]["state"], sort_filter.upper(), india[i][sort_filter]))
+        print("~~~~~~~~~~~~~~~~~~")
+        print()
+
 again_choice = "yes"
 
 while again_choice == "yes":
@@ -112,51 +155,14 @@ while again_choice == "yes":
 
     choice = int(input("Whats Your Choice: "))
 
-
-
     if choice == 1:
-
-        # 1. Filtering the data from Collection as expected by User
-        filter1 = input("Please Enter 1st Filter from [active | confirmed | deaths | recovered | state]: ")
-        filter2 = input("Please Enter 2nd Filter from [active | confirmed | deaths | recovered | state]: ")
-
-        for i in range(0, len(india)):
-            print("~~~~~~~~~~~~~~~~~~")
-            print("{}: {}\n{}: {}".format(filter1.upper(), india[i][filter1], filter2.upper(), india[i][filter2]))
-            print("~~~~~~~~~~~~~~~~~~")
-            print()
+       filter()
 
     elif choice == 2:
-
-        # 2. Searching from the Data | Linear Search
-        state = input("Enter the name of state to search: ")
-        for i in range(0, len(india)):
-
-            print("Matching {} with {}".format(state, india[i]["state"]))
-
-            # if state == india[i]["state"]:
-            if state.lower() == india[i]["state"].lower():
-                print("State {} Found. Details are Below:".format(state))
-                print(india[i])
-                break
+        search()
 
     elif choice == 3:
-
-        # 3. Sort the data | Bubble Sort
-        sort_filter = input("Enter Sorting Field [active | confirmed | deaths | recovered ]: ")
-        n = len(india)  # n is 10
-        for i in range(0, n):  # 0, 9
-            for j in range(0, n - i - 1):
-                if india[j][sort_filter] > india[j + 1][sort_filter]:
-                    # Swap the Elements
-                    india[j], india[j + 1] = india[j + 1], india[j]
-
-        print("Sorted As Per {} Cases: ".format(sort_filter))
-        for i in range(0, len(india)):
-            print("~~~~~~~~~~~~~~~~~~")
-            print("{}: {}\n{}: {}".format("STATE", india[i]["state"], sort_filter.upper(), india[i][sort_filter]))
-            print("~~~~~~~~~~~~~~~~~~")
-            print()
+        sort()
 
     else:
         print("Seems like you have not entered the correct choice")
