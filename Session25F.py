@@ -1,10 +1,13 @@
 import numpy as np
-array = np.genfromtxt("CityTemps.csv", delimiter=",")
+array = np.genfromtxt("CityTemps.csv", delimiter=",", dtype=np.float)
 print(array)
+
+column_names = ["Year,Month,Ludhiana,Amritsar,Chandigarh"]
 
 print(array[0])
 print(array[1])
 print(array[1][0])
+print(array[5][4])
 
 # Data Analysis Assignment:
 # Compute the Results below and share the code in group
