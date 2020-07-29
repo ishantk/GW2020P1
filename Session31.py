@@ -1,54 +1,45 @@
+"""
+    soccerdata analysis with pandas to find best goal keeper :)
+"""
+
 import pandas as pd
 
-teams = [
-    "Rajasthan Royals",
-    "Delhi Capitals",
-    "Chennai Super Kings",
-    "Mumbai Indians",
-    "Delhi Capitals",
-    "Kolkata Knight Riders",
-    "Chennai Super Kings",
-    "Deccan Chargers",
-    "Kings XI Punjab",
-    "Mumbai Indias"
-]
+import matplotlib.pyplot as plt # so as to use seaborn
+import seaborn as sns # Reference Link: https://seaborn.pydata.org/tutorial.html
 
-ranks = [2, 3, 4, 1, 3, 4, 1, 2, 5, 4]
-years = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019]
+table = pd.read_csv("soccerdata.csv")
+print(table)
 
-ipl_data_set = {
-    "teams": teams,
-    "ranks": ranks,
-    "years": years
-}
+# print(table.head()) # top 5
+print(table.head(10)) # top 10
 
-another_data_set = {
-    "teams": ["Sunrisers Hyderabad", "Mumbai Indians", "Pune Warriors"],
-    "ranks": [8, 9, 5],
-    "years": [2015, 2019, 2018]
-}
+print(table.Name) # OR print(table['Name'])
 
-table1 = pd.DataFrame(ipl_data_set)
-table2 = pd.DataFrame(another_data_set)
+# sns.countplot(y=table.Nationality, palette="Set2")
+# sns.countplot(x="Age", data=table)
+# sns.countplot(x="Nationality", data=table)
 
-print("Table1:")
-print(table1)
+# Format titles on X and Y axis of your graph to show them properly
+# hint : names may fit in well if put up diagonally /
 
-print("Table2:")
-print(table2)
+# plt.show()
 
-print("Concatenating Tables [ROW-WISE]:")
-table3 = pd.concat([table1, table2])
-print("Table3:")
-print(table3)
+# Case Study: Finding goalkeepers who are sort of best to stop the goals
+# extract the attributes from which we can draw a decision
+# weight them according to their importance
 
-print("Concatenating Tables [COLUMN-WISE]:")
-table4 = pd.concat([table1, table2], axis=1)
-print("Table4:")
-print(table4)
+# example:
+w1 = 1
+w2 = 2
+w3 = 3
+w4 = 4
 
-print("Appending Tables:")
-table5 = table1.append(table2) # by default row wise only :(
-print("Table5:")
-print(table5)
+# associate the above weights to the attributes as per the importance
+table["GK_SCORE"] = w1*table.GK_Positioning + w2*table.GK_Diving + w3*table.GK_Handling + w4*table.GK_Reflexes
 
+print(table)
+
+sorted_table = table.sort_values("GK_SCORE")
+print(sorted_table)
+
+print(sorted_table.tail(10))
